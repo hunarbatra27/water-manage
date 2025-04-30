@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historical Data</title>
+  <link rel="stylesheet" href="history.css">
+</head>
+<body>
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1>Water Quality Historical Data</h1>
+    <p>Track Temperature, pH, TDS, and Dissolved Oxygen over time</p>
+    <nav class="button-container">
+      <a href="index.html" class="nav-button">Home</a>
+      <a href="dashboard.html" class="nav-button">Dashboard</a>
+      <a href="graph.html" class="nav-button">Graphs</a>
+    </nav>
+  </header>
+
+  <!-- Form Section -->
+  <div class="form-section">
+    <div class="form-container">
+      <h2>Add a New Record</h2>
+      <form id="dataForm">
+        <div class="form-row">
+          <input type="date" id="date" required placeholder="Date">
+          <input type="time" id="time" required placeholder="Time">
+        </div>
+        <div class="form-row">
+          <input type="number" id="temperature" step="0.1" placeholder="Temperature (°C)" required>
+          <input type="number" id="ph" step="0.1" placeholder="pH Level" required>
+        </div>
+        <div class="form-row">
+          <input type="number" id="tds" placeholder="TDS (ppm)" required>
+          <input type="number" id="do" step="0.1" placeholder="Dissolved Oxygen (mg/L)" required>
+        </div>
+        <button type="submit" class="submit-button">Add Record</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <div class="table-section">
+    <h2>Recorded Data</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Temperature (°C)</th>
+            <th>pH Level</th>
+            <th>Total Dissolved Solids (ppm)</th>
+            <th>Dissolved Oxygen (mg/L)</th>
+          </tr>
+        </thead>
+        <tbody id="dataTableBody">
+          <!-- Dynamically added rows will appear here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- JavaScript for LocalStorage -->
+  <script>
+    const form = document.getElementById("dataForm");
+    const tableBody = document.getElementById("dataTableBody");
+
+    // Load data from LocalStorage on page load
+    document.addEventListener("DOMContentLoaded", function() {
+      const savedData = JSON.parse(localStorage.getItem("historicalData")) || [];
+      savedData.forEach(record => addRowToTable(record));
+    });
+
+    // Add event listener to form submission
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Get input values
+      const record = {
+        date: document.getElementById("date").value,
+        time: document.getElementById("time").value,
+        temperature: document.getElementById("temperature").value,
+        ph: document.getElementById("ph").value,
+        tds: document.getElementById("tds").value,
+        do: document.getElementById("do").value
+      };
+
+      // Save to LocalStorage
+      const existingData = JSON.parse(localStorage.getItem("historicalData")) || [];
+      existingData.push(record);
+      localStorage.setItem("historicalData", JSON.stringify(existingData));
+
+      // Add row to the table
+      addRowToTable(record);
+
+      // Reset the form
+      form.reset();
+    });
+
+    // Function to add a row to the table
+    function addRowToTable(record) {
+      const newRow = `
+        <tr>
+          <td>${record.date}</td>
+          <td>${record.time}</td>
+          <td>${record.temperature}</td>
+          <td>${record.ph}</td>
+          <td>${record.tds}</td>
+          <td>${record.do}</td>
+        </tr>
+      `;
+      tableBody.insertAdjacentHTML("beforeend", newRow);
+    }
+  </script>
+</body>
+</html>

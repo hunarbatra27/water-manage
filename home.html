@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Monitoring System</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #002244;
+    font-size: 16px;
+}
+
+/* Header Section */
+header {
+    position: sticky;
+    top: 0;
+    background-color: #002244;
+    padding: 15px 20px;
+    z-index: 100;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 80px; /* Adjusted logo size */
+    height: auto;
+}
+
+.login .btn, .register .btn {
+    text-decoration: none;
+    background-color: #00a86b;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.login .btn:hover, .register .btn:hover {
+    background-color: #008f5a;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #004266;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-btn {
+    text-decoration: none;
+    background-color: #00a86b;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cta-btn:hover {
+    background-color: #008f5a;
+    transform: scale(1.05);
+}
+
+/* Features Section */
+.features {
+    background-color: #e9f7f1;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.features .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.feature-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #00a86b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: scale(1.05);
+}
+
+.feature-card h3 {
+    font-size: 1.8rem;
+    color: #00a86b;
+    margin-bottom: 20px;
+}
+
+.feature-card p {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* Cards Section */
+.cards {
+    background-color: #ffffff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.cards .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #00a86b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card h3 {
+    font-size: 1.8rem;
+    color: #002244;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.card-btn {
+    text-decoration: none;
+    background-color: #00a86b;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.card-btn:hover {
+    background-color: #008f5a;
+    transform: scale(1.05);
+}
+
+/* Footer Section */
+footer {
+    background-color: #002244;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    font-size: 1rem;
+}
+
+/* Smooth Scroll Effect */
+html {
+    scroll-behavior: smooth;
+}
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .hero-content h1 {
+                font-size: 4rem;
+            }
+
+            .hero-content p {
+                font-size: 1.8rem;
+            }
+
+            .cta-btn {
+                font-size: 1.5rem;
+                padding: 15px 40px;
+            }
+
+            .features .container,
+            .cards .container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            header {
+                padding: 20px 50px;
+            }
+
+            .hero {
+                height: 90vh;
+            }
+
+            .features .container,
+            .cards .container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <a href="#home">
+                    <img src="images/logo.jpg" alt="WaterMon Logo">
+                </a>
+            </div>
+            <div class="login">
+                <a href="login.html" class="btn">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Parallax Effect -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>FARM INTELLIGENCE NETWORK</h1>
+            <p>Dive into Sustainability: One wave at a Time</p>
+            <a href="#features" class="cta-btn">Explore Features</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="feature-card">
+                <h3>Real-Time Dashboard</h3>
+                <p>Track water quality and view live data from your fish farm.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Historical Data</h3>
+                <p>Access past water quality data to monitor trends over time.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Interactive Graphs</h3>
+                <p>Visualize water metrics with interactive graphs and charts.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Alerts & Notifications</h3>
+                <p>Get notified of any abnormalities in water quality parameters.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card Section (Links to Other Pages) -->
+    <section id="cards" class="cards">
+        <div class="container">
+            <div class="card">
+                <h3>Dashboard</h3>
+                <p>Real-time data and monitoring tools for your fish farm.</p>
+                <a href="dashboard.html" class="card-btn">View Dashboard</a>
+            </div>
+            <div class="card">
+                <h3>Graph</h3>
+                <p>Interactive graphs showing historical data trends.</p>
+                <a href="graph.html" class="card-btn">View Graph</a>
+            </div>
+            <div class="card">
+                <h3>Historical Data</h3>
+                <p>View past records of water quality metrics over time.</p>
+                <a href="historical data.html" class="card-btn">View Historical Data</a>
+            </div>
+            <div class="card">
+                <h3>Contact Us</h3>
+                <p>Have questions? Get in touch with our team.</p>
+                <a href="contact us.html" class="card-btn">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 WaterMon | All rights reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

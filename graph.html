@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphical Dashboard</title>
+  <link rel="stylesheet" href="graph.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Dashboard Header -->
+  <header class="dashboard-header">
+    <h1>GRAPHS</h1>
+    <p>Real-time graphical representation of sensor data with AI insights</p>
+    <!-- Navigation Buttons -->
+    <nav class="button-container">
+      <a href="index.html" class="nav-button">Home</a>
+      <a href="dashboard.html" class="nav-button">Dashboard</a>
+      <a href="historical data.html" class="nav-button">Historical Data</a>
+    </nav>
+  </header>
+
+  <!-- Graphs Container -->
+  <div class="graphs-container">
+    <!-- Temperature Chart -->
+    <div class="chart-container">
+      <h2>Temperature (°C)</h2>
+      <canvas id="temperatureChart"></canvas>
+    </div>
+
+    <!-- pH Chart -->
+    <div class="chart-container">
+      <h2>pH Level</h2>
+      <canvas id="phChart"></canvas>
+    </div>
+
+    <!-- TDS Chart -->
+    <div class="chart-container">
+      <h2>Total Dissolved Solids (ppm)</h2>
+      <canvas id="tdsChart"></canvas>
+    </div>
+
+    <!-- Dissolved Oxygen Chart -->
+    <div class="chart-container">
+      <h2>Dissolved Oxygen (mg/L)</h2>
+      <canvas id="oxygenChart"></canvas>
+    </div>
+
+    <!-- AI Predictions Chart -->
+    <div class="chart-container">
+      <h2>AI Predictions</h2>
+      <canvas id="aiPredictionsChart"></canvas>
+    </div>
+
+    <!-- AI Anomalies Chart -->
+    <div class="chart-container">
+      <h2>AI Anomalies</h2>
+      <canvas id="aiAnomaliesChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Script for Charts -->
+  <script>
+    // Function to fetch data from the backend
+    async function fetchData(endpoint) {
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/${endpoint}`);
+        return await response.json();
+      } catch (error) {
+        console.error(`Error fetching ${endpoint}:`, error);
+      }
+    }
+
+    // Function to update charts dynamically
+    async function updateCharts() {
+      const data = await fetchData('graph-data');
+      const aiData = await fetchData('ai/predict');
+      const anomalies = await fetchData('ai/anomalies');
+
+      if (data) {
+        const labels = data.labels || [];
+        const temperatureData = data.temperature || [];
+        const tdsData = data.tds || [];
+        const phData = data.ph || [];
+        const dissolvedOxygenData = data.dissolved_oxygen || [];
+
+        // Update Temperature Chart
+        temperatureChart.data.labels = labels;
+        temperatureChart.data.datasets[0].data = temperatureData;
+        temperatureChart.update();
+
+        // Update TDS Chart
+        tdsChart.data.labels = labels;
+        tdsChart.data.datasets[0].data = tdsData;
+        tdsChart.update();
+
+        // Update pH Chart
+        phChart.data.labels = labels;
+        phChart.data.datasets[0].data = phData;
+        phChart.update();
+
+        // Update Dissolved Oxygen Chart
+        oxygenChart.data.labels = labels;
+        oxygenChart.data.datasets[0].data = dissolvedOxygenData;
+        oxygenChart.update();
+      }
+
+      if (aiData) {
+        const labels = data.labels || [];
+        const aiValues = [
+          aiData.temperature || 0,
+          aiData.tds || 0,
+          aiData.ph || 0,
+          aiData.dissolved_oxygen || 0,
+        ];
+
+        aiPredictionsChart.data.labels = labels;
+        aiPredictionsChart.data.datasets[0].data = aiValues;
+        aiPredictionsChart.update();
+      }
+
+      if (anomalies) {
+        const labels = data.labels || [];
+        const anomalyValues = anomalies.map((value) => (value ? 1 : 0));
+
+        aiAnomaliesChart.data.labels = labels;
+        aiAnomaliesChart.data.datasets[0].data = anomalyValues;
+        aiAnomaliesChart.update();
+      }
+    }
+
+    // Initialize charts
+    const ctxTemp = document.getElementById('temperatureChart').getContext('2d');
+    const ctxTds = document.getElementById('tdsChart').getContext('2d');
+    const ctxPh = document.getElementById('phChart').getContext('2d');
+    const ctxOxygen = document.getElementById('oxygenChart').getContext('2d');
+    const ctxAiPredictions = document.getElementById('aiPredictionsChart').getContext('2d');
+    const ctxAiAnomalies = document.getElementById('aiAnomaliesChart').getContext('2d');
+
+    const temperatureChart = new Chart(ctxTemp, {
+      type: 'line',
+      data: { labels: [], datasets: [{ label: 'Temperature', data: [], borderColor: '#ff6f61', tension: 0.3 }] },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+    });
+
+    const tdsChart = new Chart(ctxTds, {
+      type: 'line',
+      data: { labels: [], datasets: [{ label: 'TDS', data: [], borderColor: '#f4b400', tension: 0.3 }] },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+    });
+
+    const phChart = new Chart(ctxPh, {
+      type: 'line',
+      data: { labels: [], datasets: [{ label: 'pH Level', data: [], borderColor: '#26a69a', tension: 0.3 }] },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+    });
+
+    const oxygenChart = new Chart(ctxOxygen, {
+      type: 'line',
+      data: { labels: [], datasets: [{ label: 'Dissolved Oxygen', data: [], borderColor: '#42a5f5', tension: 0.3 }] },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+    });
+
+    const aiPredictionsChart = new Chart(ctxAiPredictions, {
+      type: 'line',
+      data: { labels: [], datasets: [{ label: 'AI Predictions', data: [], borderColor: '#9c27b0', tension: 0.3 }] },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+    });
+
+    const aiAnomaliesChart = new Chart(ctxAiAnomalies, {
+      type: 'line',
+      data: { labels: [], datasets: [{ label: 'AI Anomalies', data: [], borderColor: '#e91e63', tension: 0.3 }] },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true } } }
+    });
+
+    // Update charts and AI insights every 5 seconds
+    setInterval(() => {
+      updateCharts();
+    }, 1000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #000; /* Solid black background */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+/* Form */
+.form-container {
+    background: linear-gradient(145deg, #222, #333); /* Subtle gradient for blending */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Strong shadow for depth */
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    color: #f5f5f5;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.subtitle {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #bbb; /* Subtle text for subtitle */
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #aaa; /* Subtle label text */
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444; /* Darker border for better contrast */
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #111; /* Dark background for inputs */
+    color: #fff; /* White text for better visibility */
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.6); /* Blue glow effect */
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 5px 15px rgba(0, 91, 179, 0.5); /* Soft shadow on hover */
+}
+
+/* Response Message */
+#response-message {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff4747; /* Bright red for error messages */
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
